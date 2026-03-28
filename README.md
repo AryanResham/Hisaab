@@ -1,16 +1,51 @@
-# React + Vite
+# Hisaab
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A family expense tracker. One person logs expenses, another reviews and rejects them. Built as a PWA so it works on phone like a normal app.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Members log daily expenses with an amount and description
+- Expenses are approved by default
+- Reviewers (e.g. mom) can open the app on their phone, see all expenses, and reject any they don't agree with
+- Tracks pocket money given vs expenses spent, shows net due each month
+- History of past months
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + Vite
+- Supabase (auth + database + realtime)
+- vite-plugin-pwa (installable on phone)
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repo and install dependencies
+   ```
+   npm install
+   ```
+
+2. Create a Supabase project at supabase.com, then run `supabase-schema.sql` in the SQL editor
+
+3. Create a `.env` file in the root:
+   ```
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_REVIEWER_CODE=your_invite_code
+   ```
+
+4. Run the dev server
+   ```
+   npm run dev
+   ```
+
+## Roles
+
+- **Member** — signs up normally, logs expenses
+- **Reviewer** — signs up with the invite code (`VITE_REVIEWER_CODE`), can reject expenses and edit pocket money
+
+## Deploy
+
+```
+npm run build
+```
+
+Then drag the `dist` folder to Vercel or Netlify. Add the same env variables in the platform's settings.

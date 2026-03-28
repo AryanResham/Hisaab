@@ -8,6 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [role, setRole] = useState('member')
+  const [inviteCode, setInviteCode] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -18,7 +19,8 @@ export default function Login() {
 
     try {
       if (isSignUp) {
-        await signUp(email, password, name, role)
+        const resolvedRole = inviteCode === import.meta.env.VITE_REVIEWER_CODE ? 'reviewer' : 'member'
+        await signUp(email, password, name, resolvedRole)
       } else {
         await signIn(email, password)
       }
@@ -46,24 +48,13 @@ export default function Login() {
               onChange={(e) => setName(e.target.value)}
               required
             />
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <button
-                type="button"
-                className={`filter-tab ${role === 'member' ? 'active' : ''}`}
-                onClick={() => setRole('member')}
-                style={{ flex: 1 }}
-              >
-                👤 Member
-              </button>
-              <button
-                type="button"
-                className={`filter-tab ${role === 'reviewer' ? 'active' : ''}`}
-                onClick={() => setRole('reviewer')}
-                style={{ flex: 1 }}
-              >
-                👩 Reviewer (Mom)
-              </button>
-            </div>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Invite code (optional)"
+              value={inviteCode}
+              onChange={(e) => setInviteCode(e.target.value)}
+            />
           </>
         )}
 
