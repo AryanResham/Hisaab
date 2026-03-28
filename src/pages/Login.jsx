@@ -7,7 +7,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
-  const [role, setRole] = useState('member')
+  const [selectedRole, setSelectedRole] = useState('member')
   const [inviteCode, setInviteCode] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -19,8 +19,14 @@ export default function Login() {
 
     try {
       if (isSignUp) {
-        const resolvedRole = inviteCode === import.meta.env.VITE_REVIEWER_CODE ? 'reviewer' : 'member'
-        await signUp(email, password, name, resolvedRole)
+        if (selectedRole === 'reviewer') {
+          if (inviteCode !== import.meta.env.VITE_REVIEWER_CODE) {
+            setError('Invalid reviewer code')
+            setLoading(false)
+            return
+          }
+        }
+        await signUp(email, password, name, selectedRole)
       } else {
         await signIn(email, password)
       }
@@ -48,13 +54,34 @@ export default function Login() {
               onChange={(e) => setName(e.target.value)}
               required
             />
-            <input
-              className="form-input"
-              type="text"
-              placeholder="Invite code (optional)"
-              value={inviteCode}
-              onChange={(e) => setInviteCode(e.target.value)}
-            />
+
+            <div className="role-selector">
+              <button
+                type="button"
+                className={`role-btn ${selectedRole === 'member' ? 'active' : ''}`}
+                onClick={() => { setSelectedRole('member'); setInviteCode('') }}
+              >
+                Member
+              </button>
+              <button
+                type="button"
+                className={`role-btn ${selectedRole === 'reviewer' ? 'active' : ''}`}
+                onClick={() => setSelectedRole('reviewer')}
+              >
+                Reviewer
+              </button>
+            </div>
+
+            {selectedRole === 'reviewer' && (
+              <input
+                className="form-input"
+                type="text"
+                placeholder="Reviewer code"
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value)}
+                required
+              />
+            )}
           </>
         )}
 
@@ -91,7 +118,7 @@ export default function Login() {
 
         <p className="login-toggle">
           {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
-          <span onClick={() => { setIsSignUp(!isSignUp); setError('') }}>
+          <span onClick={() => { setIsSignUp(!isSignUp); setError(''); setSelectedRole('member'); setInviteCode('') }}>
             {isSignUp ? 'Sign In' : 'Sign Up'}
           </span>
         </p>

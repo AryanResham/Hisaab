@@ -568,6 +568,33 @@ input, textarea {
   font-weight: 500;
 }
 
+.role-selector {
+  display: flex;
+  background: var(--bg-secondary);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  width: 100%;
+}
+
+.role-btn {
+  flex: 1;
+  padding: 4px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.role-btn.active {
+  background: var(--accent-green);
+  color: #fff;
+  font-weight: 500;
+}
+
 /* ===== Review Page ===== */
 .review-list {
   flex: 1;
