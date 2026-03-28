@@ -93,7 +93,7 @@ export default function Dashboard() {
     }
   }
 
-  const runningBalance = totals.totalExpenses - totals.totalCashIn
+  const runningBalance = totals.approvedExpenses - totals.totalCashIn
   const netDue = pocketMoney + runningBalance
 
   // Group expenses by date
@@ -136,7 +136,7 @@ export default function Dashboard() {
           </div>
           <div className="breakdown-item">
             <span className="label">Expenses</span>
-            <span className="value expense">₹{totals.totalExpenses.toLocaleString('en-IN')}</span>
+            <span className="value expense">₹{totals.approvedExpenses.toLocaleString('en-IN')}</span>
           </div>
           <div className="breakdown-item">
             <span className="label">Cash In</span>

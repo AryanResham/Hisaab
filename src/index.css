@@ -2,17 +2,17 @@
 
 /* ===== Design Tokens ===== */
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --bg-card: rgba(255, 255, 255, 0.04);
-  --bg-glass: rgba(255, 255, 255, 0.06);
-  --bg-glass-hover: rgba(255, 255, 255, 0.1);
-  --border-glass: rgba(255, 255, 255, 0.08);
+  --bg-primary: #111b21;
+  --bg-secondary: #1f2c34;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(255, 255, 255, 0.07);
+  --bg-glass-hover: rgba(255, 255, 255, 0.11);
+  --border-glass: rgba(255, 255, 255, 0.09);
   --border-subtle: rgba(255, 255, 255, 0.05);
 
-  --text-primary: #f0f0f5;
-  --text-secondary: #8a8a9a;
-  --text-muted: #5a5a6a;
+  --text-primary: #e9edef;
+  --text-secondary: #8696a0;
+  --text-muted: #667781;
 
   --accent-green: #25d366;
   --accent-green-dim: rgba(37, 211, 102, 0.15);
@@ -58,16 +58,17 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.5;
-  min-height: 100dvh;
-  overflow-x: hidden;
+  height: 100dvh;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  min-height: 100dvh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 a {
@@ -109,6 +110,7 @@ input, textarea {
   max-width: 480px;
   margin: 0 auto;
   width: 100%;
+  overflow: hidden;
 }
 
 .page-header {
@@ -264,21 +266,21 @@ input, textarea {
 .expense-bubble {
   align-self: flex-end;
   padding: 10px 14px;
-  border-radius: var(--radius-md) var(--radius-md) 4px var(--radius-md);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) var(--radius-md);
   position: relative;
   animation: bubbleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .expense-bubble.type-expense {
-  background: #1a3a2a;
-  border: 1px solid rgba(37, 211, 102, 0.15);
+  background: #1f2c34;
+  border: 1px solid #25d36650;
 }
 
 .expense-bubble.type-cash_in {
-  background: #1a2a3a;
-  border: 1px solid rgba(91, 141, 238, 0.15);
+  background: #1f2c34;
+  border: 1px solid #5b8dee50;
   align-self: flex-start;
-  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4px;
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) var(--radius-md) ;
 }
 
 .bubble-amount {
@@ -344,16 +346,14 @@ input, textarea {
 /* ===== Input Bar ===== */
 .input-bar {
   position: fixed;
-  bottom: 10px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  padding: 10px 16px;
-  padding-bottom: calc(10px + var(--safe-bottom));
-  background: rgba(10, 10, 15, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  padding: 20px 16px;
+  background: #1f2c34;
   border-top: 1px solid var(--border-glass);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1057,7 +1057,7 @@ input, textarea {
   right: -300px;
   width: 280px;
   bottom: 0;
-  background: rgba(18, 18, 26, 0.95);
+  background: rgba(10, 20, 26, 0.98);
   border-left: 1px solid var(--border-glass);
   border-radius: 0;
   z-index: 101;

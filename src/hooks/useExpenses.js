@@ -83,7 +83,7 @@ export function useExpenses(monthYear = null) {
         if (exp.status === 'approved') acc.approvedExpenses += exp.amount
         if (exp.status === 'rejected') acc.rejectedExpenses += exp.amount
         if (exp.status === 'pending') acc.pendingExpenses += exp.amount
-      } else if (exp.type === 'cash_in') {
+      } else if (exp.type === 'cash_in' && exp.status !== 'rejected') {
         acc.totalCashIn += exp.amount
       }
       return acc

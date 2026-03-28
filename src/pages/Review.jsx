@@ -56,12 +56,7 @@ export default function Review() {
     return exp.status === filter
   })
 
-  const runningBalance = totals.totalExpenses - totals.totalCashIn
-  const netDue = pocketMoney + runningBalance
-
-  // For reviewer: show approved-based net
-  const approvedBalance = totals.approvedExpenses - totals.totalCashIn
-  const approvedNetDue = pocketMoney + approvedBalance
+  const netDue = pocketMoney + totals.approvedExpenses - totals.totalCashIn
 
   if (loading) {
     return (
@@ -82,28 +77,20 @@ export default function Review() {
         <HamburgerMenu />
       </div>
 
-      {/* Pocket Money Row */}
-      <div className="pocket-money-row">
-        <span className="label">Pocket Money</span>
-        <span className="value">₹{pocketMoney.toLocaleString('en-IN')}</span>
-      </div>
-
       {/* Summary Card */}
       <div className="balance-card glass-card">
-        <div className="balance-label">Net Due (Approved Only)</div>
-        <div className={`balance-amount ${approvedNetDue >= 0 ? 'positive' : ''}`}>
-          ₹{approvedNetDue.toLocaleString('en-IN')}
+        <div className="balance-label">Net Due This Month</div>
+        <div className={`balance-amount ${netDue >= 0 ? 'positive' : ''}`}>
+          ₹{netDue.toLocaleString('en-IN')}
         </div>
         <div className="balance-breakdown">
           <div className="breakdown-item">
-            <span className="label">Approved</span>
-            <span className="value expense">₹{totals.approvedExpenses.toLocaleString('en-IN')}</span>
+            <span className="label">Pocket</span>
+            <span className="value pocket">₹{pocketMoney.toLocaleString('en-IN')}</span>
           </div>
           <div className="breakdown-item">
-            <span className="label">Pending</span>
-            <span className="value" style={{ color: 'var(--accent-yellow)' }}>
-              ₹{totals.pendingExpenses.toLocaleString('en-IN')}
-            </span>
+            <span className="label">Expenses</span>
+            <span className="value expense">₹{totals.approvedExpenses.toLocaleString('en-IN')}</span>
           </div>
           <div className="breakdown-item">
             <span className="label">Cash In</span>
